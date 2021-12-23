@@ -10,6 +10,12 @@ import { Observable, Subject } from 'rxjs';
 export class AppComponent {
   title = 'cbn';
 
+  hasCamara: boolean = false;
+
+  errorCam: boolean = false;
+  errorCoor: boolean = false;
+  noDevice: boolean = false
+
   public webcamImage: WebcamImage | undefined;;
 
   lat: number = 0;
@@ -34,12 +40,14 @@ export class AppComponent {
 
     if (error.mediaStreamError && error.mediaStreamError.name === "NotAllowedError") {
       console.warn("Camera access was not allowed by user!");
-      alert('Denegaste el acceso a la camara wachin!')
+      this.errorCam = true;
+      //alert('Denegaste el acceso a la camara wachin!')
     }
 
     if (error.mediaStreamError && error.mediaStreamError.message === "Requested device not found") {
       console.warn("No se encontrarón dispositivos copnectados!");
-      alert('No se encontrarón dispositivos conectados!');
+      this.noDevice = true;
+      //alert('No se encontrarón dispositivos conectados!');
     }
   }
 
@@ -51,6 +59,11 @@ export class AppComponent {
         console.log(pos);
         this.lat = pos['coords']['latitude'];
         this.long = pos['coords']['longitude'];
+      }, (error: any) => {
+        console.log(error);
+        if(error.message == "User denied Geolocation"){
+          this.errorCoor = true;
+        }
       });
     } else {
       console.warn('Geolocation No Es Compatible');

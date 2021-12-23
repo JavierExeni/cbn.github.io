@@ -418,13 +418,28 @@
     </button>
   </div>
 
-  <webcam [height]="500" [width]="500" [trigger]="triggerObservable" (imageCapture)="handleImage($event)" (initError)="handleInitError($event)"></webcam>
+  <h2 *ngIf="errorCam" class="error">Denegaste el acceso a la camara wachin!</h2>
+
+  <h2 *ngIf="noDevice" class="error">No se encontrarón dispositivos conectados!</h2>
+
+  <h2 *ngIf="errorCoor" class="error">Permisos Denegados parar Geolocalización!</h2>
+
+
+  <div>
+    <webcam *ngIf="hasCamara" [height]="500" [width]="500" [trigger]="triggerObservable" (imageCapture)="handleImage($event)" (initError)="handleInitError($event)"></webcam>
+  </div>
 
   <!-- Button Takes Photo -->
 
-<div style="width: 50%; margin: auto; text-align: center;">
+<div *ngIf="hasCamara"  style="width: 50%; margin: auto; text-align: center;">
   <button (click)="triggerSnapshot();" class="btncard">
     <span>Tomar Foto</span>
+  </button>
+</div>
+
+<div *ngIf="!hasCamara"  style="width: 50%; margin: auto; text-align: center;">
+  <button (click)="hasCamara = true;" class="btncard">
+    <span>Activar Camara</span>
   </button>
 </div>
 <!-- Snapshot Div where image will be shown -->
