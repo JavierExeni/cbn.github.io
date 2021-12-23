@@ -1,0 +1,14 @@
+.btncard{
+  width: 200px;
+  padding: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  border-radius: 8px;
+  outline: none;
+  cursor: pointer;
+}
+
+.btncard:hover{
+  border: 2px solid #1976d2;;
+  color: #1976d2;
+}

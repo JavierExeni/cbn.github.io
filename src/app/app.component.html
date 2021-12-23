@@ -418,6 +418,29 @@
     </button>
   </div>
 
+  <webcam [height]="500" [width]="500" [trigger]="triggerObservable" (imageCapture)="handleImage($event)" (initError)="handleInitError($event)"></webcam>
+
+  <!-- Button Takes Photo -->
+
+<div style="width: 50%; margin: auto; text-align: center;">
+  <button (click)="triggerSnapshot();" class="btncard">
+    <span>Tomar Foto</span>
+  </button>
+</div>
+<!-- Snapshot Div where image will be shown -->
+<div class="snapshot" *ngIf="webcamImage">
+  <h2>Foto tomada</h2>
+  <img [src]="webcamImage.imageAsDataUrl"/>
+</div>
+
+
+
+  <div class="terminal">
+
+    <pre>Coordenadas: Latitud: <strong>{{lat}}</strong> | Longitude: <strong>{{long}}</strong> </pre>
+
+  </div>
+
   <!-- Terminal -->
   <div class="terminal" [ngSwitch]="selection.value">
       <pre *ngSwitchDefault>ng generate component xyz</pre>
